@@ -1,4 +1,4 @@
-const PIXELS_PER_MAJOR = 160;
+const PIXELS_PER_MAJOR = 80;
 const SIDE_PADDING = 56;
 const EPSILON = 1e-9;
 
@@ -84,11 +84,7 @@ function renderNumberLine(start, end, majorStep, minorDivisions) {
 
   statusEl.textContent = `Showing ${formatNumber(minValue)} to ${formatNumber(maxValue)} with major divisions of ${formatNumber(majorStep)} and minor ${divisionName(minorDivisions)}.`;
 
-  requestAnimationFrame(() => {
-    const startOffset = ((minValue - displayMin) / majorStep) * PIXELS_PER_MAJOR;
-    const centerTarget = Math.max(0, startOffset + SIDE_PADDING - viewport.clientWidth / 2);
-    viewport.scrollTo({ left: centerTarget, behavior: "smooth" });
-  });
+ 
 }
 
 function handleSubmit(event) {

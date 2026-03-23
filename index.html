@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurable Number Line</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <h1>Configurable Number Line</h1>
+        <p class="subtitle">
+          Choose a start and end value, set the major division size, and pick minor divisions in halves,
+          fifths, or tenths. Only major division values are labelled, the line extends one major division
+          beyond each end, and you can scroll horizontally when the line is wider than the screen.
+        </p>
+      </header>
+
+      <form id="controls" class="controls" autocomplete="off">
+        <label>
+          Start number
+          <input type="number" id="start" value="0" step="1" />
+        </label>
+
+        <label>
+          End number
+          <input type="number" id="end" value="10" step="1" />
+        </label>
+
+        <label>
+          Major division
+          <input type="number" id="majorStep" value="1" step="0.1" min="0.1" />
+        </label>
+
+        <label>
+          Minor divisions
+          <select id="minorDivisions">
+            <option value="2">Halves</option>
+            <option value="5">Fifths</option>
+            <option value="10" selected>Tenths</option>
+          </select>
+        </label>
+
+        <div class="actions">
+          <button type="submit">Update number line</button>
+        </div>
+      </form>
+
+      <section class="status-panel" aria-live="polite">
+        <p id="status">Showing 0 to 10 with major divisions of 1 and minor tenths.</p>
+      </section>
+
+      <section class="number-line-card">
+        <div id="viewport" class="viewport" aria-label="Scrollable number line">
+          <div id="track" class="track"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

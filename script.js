@@ -59,7 +59,7 @@ function renderNumberLine(start, end, majorStep, minorDivisions) {
   track.append(leftArrow, rightArrow);
 
   for (let value = displayMin; value <= displayMax + EPSILON; value += minorStep) {
-    const normalizedValue = Math.round(value / minorStep) * minorStep;
+    const normalizedValue = displayMin + Math.round((value - displayMin) / minorStep) * minorStep;
     const isWithinTickRange = normalizedValue >= minValue - EPSILON && normalizedValue <= maxValue + EPSILON;
     if (!isWithinTickRange) {
       continue;

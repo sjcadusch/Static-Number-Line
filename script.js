@@ -1,5 +1,5 @@
 const PIXELS_PER_MAJOR = 80;
-const SIDE_PADDING = 5;
+const SIDE_PADDING = 2;
 const EPSILON = 1e-9;
 
 const form = document.getElementById("controls");

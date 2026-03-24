@@ -1,4 +1,4 @@
-const PIXELS_PER_MAJOR = 100;
+const PIXELS_PER_MAJOR = 80;
 const SIDE_PADDING = 56;
 const EPSILON = 1e-9;
 

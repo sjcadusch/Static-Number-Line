@@ -157,6 +157,17 @@ button {
   color: var(--minor);
 }
 
+.tick.minor.minor-short {
+  top: 148px;
+  height: 22px;
+}
+
+.tick.minor.minor-midpoint {
+  top: 140px;
+  width: 3px;
+  height: 30px;
+}
+
 .label {
   position: absolute;
   top: 186px;
@@ -164,17 +175,6 @@ button {
   font-size: 1.15rem;
   font-weight: 700;
   white-space: nowrap;
-}
-
-.zero-marker {
-  position: absolute;
-  top: 108px;
-  transform: translateX(-50%);
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: rgba(15, 118, 110, 0.14);
-  border: 2px solid var(--accent);
 }
 
 @media (max-width: 640px) {

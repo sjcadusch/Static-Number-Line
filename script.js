@@ -68,7 +68,14 @@ function renderNumberLine(start, end, majorStep, minorDivisions) {
     const offset = ((normalizedValue - displayMin) / majorStep) * PIXELS_PER_MAJOR + SIDE_PADDING;
     const majorIndex = (normalizedValue - displayMin) / majorStep;
     const isMajorTick = Math.abs(majorIndex - Math.round(majorIndex)) < 1e-7;
-    const tick = createDiv(isMajorTick ? "tick major" : "tick minor", { left: `${offset}px` });
+    let tickClassName = isMajorTick ? "tick major" : "tick minor";
+    if (!isMajorTick && minorDivisions === 10) {
+      const minorIndex = Math.round((normalizedValue - displayMin) / minorStep);
+      const positionWithinMajor = ((minorIndex % 10) + 10) % 10;
+      tickClassName += positionWithinMajor === 5 ? " minor-midpoint" : " minor-short";
+    }
+
+    const tick = createDiv(tickClassName, { left: `${offset}px` });
     track.appendChild(tick);
 
     if (isMajorTick) {

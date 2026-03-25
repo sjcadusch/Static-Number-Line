@@ -157,6 +157,17 @@ button {
   color: var(--minor);
 }
 
+.tick.minor.minor-short {
+  top: 146px;
+  height: 24px;
+}
+
+.tick.minor.minor-midpoint {
+  top: 136px;
+  width: 3px;
+  height: 34px;
+}
+
 .label {
   position: absolute;
   top: 186px;

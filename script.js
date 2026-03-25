@@ -1,5 +1,5 @@
 const PIXELS_PER_MAJOR = 80;
-const SIDE_PADDING = 56;
+const SIDE_PADDING = 20;
 const EPSILON = 1e-9;
 
 const form = document.getElementById("controls");
@@ -21,7 +21,7 @@ function formatNumber(value) {
 }
 
 function divisionName(count) {
-  return { 2: "halves", 5: "fifths", 10: "tenths" }[count] ?? `${count} parts`;
+  return { 1: "none", 2: "halves", 5: "fifths", 10: "tenths" }[count] ?? `${count} parts`;
 }
 
 function createDiv(className, styles = {}, textContent = "") {
@@ -59,11 +59,23 @@ function renderNumberLine(start, end, majorStep, minorDivisions) {
   track.append(leftArrow, rightArrow);
 
   for (let value = displayMin; value <= displayMax + EPSILON; value += minorStep) {
-    const normalizedValue = Math.round(value / minorStep) * minorStep;
+    const normalizedValue = displayMin + Math.round((value - displayMin) / minorStep) * minorStep;
+    const isWithinTickRange = normalizedValue >= minValue - EPSILON && normalizedValue <= maxValue + EPSILON;
+    if (!isWithinTickRange) {
+      continue;
+    }
+
     const offset = ((normalizedValue - displayMin) / majorStep) * PIXELS_PER_MAJOR + SIDE_PADDING;
     const majorIndex = (normalizedValue - displayMin) / majorStep;
     const isMajorTick = Math.abs(majorIndex - Math.round(majorIndex)) < 1e-7;
-    const tick = createDiv(isMajorTick ? "tick major" : "tick minor", { left: `${offset}px` });
+    let tickClassName = isMajorTick ? "tick major" : "tick minor";
+    if (!isMajorTick && minorDivisions === 10) {
+      const minorIndex = Math.round((normalizedValue - displayMin) / minorStep);
+      const positionWithinMajor = ((minorIndex % 10) + 10) % 10;
+      tickClassName += positionWithinMajor === 5 ? " minor-midpoint" : " minor-short";
+    }
+
+    const tick = createDiv(tickClassName, { left: `${offset}px` });
     track.appendChild(tick);
 
     if (isMajorTick) {
@@ -75,14 +87,9 @@ function renderNumberLine(start, end, majorStep, minorDivisions) {
     }
   }
 
-  const zeroInRange = displayMin <= 0 && displayMax >= 0;
-  if (zeroInRange) {
-    const zeroOffset = ((0 - displayMin) / majorStep) * PIXELS_PER_MAJOR + SIDE_PADDING;
-    const zeroMarker = createDiv("zero-marker", { left: `${zeroOffset}px` });
-    track.appendChild(zeroMarker);
-  }
-
-  statusEl.textContent = `Showing ${formatNumber(minValue)} to ${formatNumber(maxValue)} with major divisions of ${formatNumber(majorStep)} and minor ${divisionName(minorDivisions)}.`;
+  const minorDescription =
+    minorDivisions === 1 ? "no minor tick marks" : `minor ${divisionName(minorDivisions)}`;
+  statusEl.textContent = `Showing ${formatNumber(minValue)} to ${formatNumber(maxValue)} with major divisions of ${formatNumber(majorStep)} and ${minorDescription}.`;
 
  
 }

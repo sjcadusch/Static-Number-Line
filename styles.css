@@ -158,14 +158,14 @@ button {
 }
 
 .tick.minor.minor-short {
-  top: 146px;
-  height: 24px;
+  top: 148px;
+  height: 22px;
 }
 
 .tick.minor.minor-midpoint {
-  top: 136px;
+  top: 140px;
   width: 3px;
-  height: 34px;
+  height: 30px;
 }
 
 .label {
